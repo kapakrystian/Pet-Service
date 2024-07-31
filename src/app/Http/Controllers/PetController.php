@@ -30,6 +30,12 @@ class PetController extends Controller
         //
     }
 
+    public function show(int $id)
+    {
+        $pet = $this->petService->singlePet($id);
+        return view('pets.show', compact('pet'));
+    }
+
     public function edit(string $id)
     {
         //

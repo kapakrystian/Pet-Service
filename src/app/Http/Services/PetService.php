@@ -17,4 +17,15 @@ class PetService
 
         return $response->json();
     }
+
+    public function singlePet(int $id)
+    {
+        $response = Http::get(self::BASE_URL . "pet/{$id}");
+        return $response->json();
+    }
+
+    public function createPet(array $data)
+    {
+        $response = Http::post(self::BASE_URL . 'pet', $data);
+    }
 }

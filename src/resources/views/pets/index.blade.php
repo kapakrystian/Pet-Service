@@ -1,4 +1,10 @@
 <x-layout>
+    <header class="bg-white shadow mb-3">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 sm:flex sm:justify-between">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Pets</h1>
+            <x-button-header href="/pets/create">Create Pet</x-button-header>
+        </div>
+    </header>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -36,6 +42,7 @@
                         <p>{{$pet['photoUrls'][0] ?? 'Photo is unavailable'}}</p>
                     </td>
                     <td class="px-6 py-4 text-sm">
+                        <a href="/pets/{{$pet['id']}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Show</a>
                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
                     </td>
