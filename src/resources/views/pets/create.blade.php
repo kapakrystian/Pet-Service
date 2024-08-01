@@ -4,18 +4,22 @@
     <div class="relative z-0 w-full mb-6 group">
         <x-form-input type="text" name="name" id="name" required/>
         <x-form-label for="name">Name</x-form-label>
+        <x-form-error name="name" />
     </div>
     <div class="relative z-0 w-full mb-6 group mt-3">
         <x-form-input type="text" name="category" id="category" required/>
         <x-form-label for="category">Category</x-form-label>
+        <x-form-error name="category" />
     </div>
     <div class="relative z-0 w-full mb-6 group mt-3">
         <x-form-input type="text" name="status" id="status" required/>
         <x-form-label for="status">Status</x-form-label>
+        <x-form-error name="status" />
     </div>
     <div class="relative z-0 w-full mb-6 group mt-3">
         <x-form-input type="text" name="photo_url" id="photo_url" required/>
         <x-form-label for="photo_url">Photo URL</x-form-label>
+        <x-form-error name="photo_url" />
     </div>
 
     <div class="mt-6 flex items-center justify-end gap-x-6">

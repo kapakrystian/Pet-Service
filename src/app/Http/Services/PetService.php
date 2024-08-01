@@ -21,7 +21,7 @@ class PetService
         ];
     }
 
-    public function allPets(string $status)
+    public function getPetsByStatus(string $status)
     {
         $response = Http::get(self::BASE_URL . 'pet/findByStatus', [
             'status' => $status
@@ -30,13 +30,13 @@ class PetService
         return $response->json();
     }
 
-    public function singlePet(string $id)
+    public function getPetById(string $id)
     {
         $response = Http::get(self::BASE_URL . "pet/{$id}");
         return $response->json();
     }
 
-    public function createPet(array $formData)
+    public function storePet(array $formData)
     {
         $response = Http::post(self::BASE_URL . 'pet/', $this->apiData($formData));
         return $response->json();
@@ -51,6 +51,7 @@ class PetService
     public function deletePet(string $id)
     {
         $response = Http::delete(self::BASE_URL . "pet/{$id}");
-        return $response->successful();
+        return $response->json();
     }
+
 }

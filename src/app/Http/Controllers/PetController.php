@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Services\PetService;
+use App\Http\Requests\PetRequest;
 
 class PetController extends Controller
 {
@@ -16,8 +17,8 @@ class PetController extends Controller
 
     public function index()
     {
-        $pets = $this->petService->allPets('available');
-        return view('pets.index', compact('pets'));
+        $pets = $this->petService->getPetsByStatus('available');
+        return view('pets.index', ['pets' => $pets]);
     }
 
     public function create()
@@ -25,11 +26,9 @@ class PetController extends Controller
         return view('pets.create');
     }
 
-    public function store(Request $request)
+    public function store(PetRequest $request)
     {
-        //TODO: validation
-
-        $this->petService->createPet([
+        $this->petService->storePet([
         'name' => $request->input('name'),
         'category' => $request->input('category'),
         'status' => $request->input('status'),
@@ -41,23 +40,21 @@ class PetController extends Controller
 
     public function show(string $id)
     {
-        $pet = $this->petService->singlePet($id);
+        $pet = $this->petService->getPetById($id);
         return view('pets.show', compact('pet'));
     }
 
     public function edit(string $id)
     {
-        $pet = $this->petService->singlePet($id);
+        $pet = $this->petService->getPetById($id);
 
         return view('pets.edit', [
             'pet' => $pet
         ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(PetRequest $request, string $id)
     {
-        //TODO: validation
-
         $this->petService->updatePet([
             'name' => $request->input('name'),
             'category' => $request->input('category'),
@@ -65,6 +62,7 @@ class PetController extends Controller
             'photo_url' => $request->input('photo_url')
         ]);
 
+        $request->session()->flash('message', 'Pet updated successfully');
         return redirect('pets');
     }
 
