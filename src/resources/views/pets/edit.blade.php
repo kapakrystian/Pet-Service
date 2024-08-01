@@ -4,23 +4,23 @@
         @method('PUT')
         @csrf
         <div class="relative z-0 w-full mb-6 group">
-            <x-form-input type="text" name="name" id="name" value="{{$pet['name'] ?? ''}}" required/>
             <x-form-label for="name">Name</x-form-label>
+            <x-form-input type="text" name="name" id="name" value="{{$pet['name'] ?? ''}}" required/>
             <x-form-error name="name" />
         </div>
         <div class="relative z-0 w-full mb-6 group mt-3">
-            <x-form-input type="text" name="category" id="category" value="{{$pet['category']['name'] ?? ''}}" required/>
             <x-form-label for="category">Category</x-form-label>
+            <x-form-input type="text" name="category" id="category" value="{{$pet['category']['name'] ?? ''}}" required/>
             <x-form-error name="category" />
         </div>
         <div class="relative z-0 w-full mb-6 group mt-3">
-            <x-form-input type="text" name="status" id="status" value="{{$pet['status'] ?? ''}}" required/>
             <x-form-label for="status">Status</x-form-label>
+            <x-form-input type="text" name="status" id="status" value="{{$pet['status'] ?? ''}}" required/>
             <x-form-error name="status" />
         </div>
         <div class="relative z-0 w-full mb-6 group mt-3">
-            <x-form-input type="text" name="photo_url" id="photo_url" value="{{$pet['photoUrls'][0] ?? ''}}" required/>
             <x-form-label for="photo_url">Photo URL</x-form-label>
+            <x-form-input type="text" name="photo_url" id="photo_url" value="{{$pet['photoUrls'][0] ?? ''}}" required/>
             <x-form-error name="photo_url" />
         </div>
 

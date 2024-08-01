@@ -21,7 +21,7 @@ class PetService
         ];
     }
 
-    public function getPetsByStatus(string $status)
+    public function getPetsByStatus(string|null $status)
     {
         $response = Http::get(self::BASE_URL . 'pet/findByStatus', [
             'status' => $status

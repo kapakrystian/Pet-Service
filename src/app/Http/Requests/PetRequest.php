@@ -24,7 +24,7 @@ class PetRequest extends FormRequest
         return [
             'name' => 'required|min:3|string',
             'category' => 'required|min:3|string',
-            'status' => 'required',
+            'status' => 'required|in:available,pending,sold',
             'photo_url' => 'required|url'
         ];
     }
