@@ -27,10 +27,19 @@ class PetController extends Controller
 
     public function store(Request $request)
     {
-        //
+        //TODO: validation
+
+        $this->petService->createPet([
+        'name' => $request->input('name'),
+        'category' => $request->input('category'),
+        'status' => $request->input('status'),
+        'photo_url' => $request->input('photo_url')
+       ]);
+
+        return redirect('pets');
     }
 
-    public function show(int $id)
+    public function show(string $id)
     {
         $pet = $this->petService->singlePet($id);
         return view('pets.show', compact('pet'));
@@ -38,16 +47,32 @@ class PetController extends Controller
 
     public function edit(string $id)
     {
-        //
+        $pet = $this->petService->singlePet($id);
+
+        return view('pets.edit', [
+            'pet' => $pet
+        ]);
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        //TODO: validation
+
+        $this->petService->updatePet([
+            'name' => $request->input('name'),
+            'category' => $request->input('category'),
+            'status' => $request->input('status'),
+            'photo_url' => $request->input('photo_url')
+        ]);
+
+        return redirect('pets');
     }
 
     public function destroy(string $id)
     {
-        //
+        //TODO: id exsist
+
+        $this->petService->deletePet($id);
+        return redirect('pets');
     }
 }

@@ -1,6 +1,6 @@
 <x-layout>
-@csrf
 <form method="POST" action="/pets" class="max-w-md mx-auto my-3">
+    @csrf
     <div class="relative z-0 w-full mb-6 group">
         <x-form-input type="text" name="name" id="name" required/>
         <x-form-label for="name">Name</x-form-label>
