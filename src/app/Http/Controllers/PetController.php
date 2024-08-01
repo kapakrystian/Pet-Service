@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\PetService;
 use App\Http\Requests\PetRequest;
 use App\Enums\PetStatus;
+use App\Exceptions\PetApiException;
 
 class PetController extends Controller
 {
@@ -21,7 +22,12 @@ class PetController extends Controller
         //Status value from dropdown. Default value is available.
         $status = $request->input('status');
 
-        $pets = $this->petService->getPetsByStatus($status);
+        try {
+            $pets = $this->petService->getPetsByStatus($status);
+        } catch (PetApiException $error) {
+            return back()->withErrors(['error' => $error->getMessage()]);
+        }
+
         return view('pets.index', [
             'pets' => $pets,
             'status' => $status,
@@ -36,12 +42,16 @@ class PetController extends Controller
 
     public function store(PetRequest $request)
     {
-        $this->petService->storePet([
-        'name' => $request->input('name'),
-        'category' => $request->input('category'),
-        'status' => $request->input('status'),
-        'photo_url' => $request->input('photo_url')
-       ]);
+        try {
+            $this->petService->storePet([
+                'name' => $request->input('name'),
+                'category' => $request->input('category'),
+                'status' => $request->input('status'),
+                'photo_url' => $request->input('photo_url')
+               ]);
+        } catch (PetApiException $error) {
+            return back()->withErrors(['error' => $error->getMessage()]);
+        }
 
         $request->session()->flash('message', 'Pet created successfully.');
         return redirect('pets');
@@ -49,7 +59,12 @@ class PetController extends Controller
 
     public function show(string $id)
     {
-        $pet = $this->petService->getPetById($id);
+        try {
+            $pet = $this->petService->getPetById($id);
+        } catch (PetApiException $error) {
+            return back()->withErrors(['error' => $error->getMessage()]);
+        }
+
         return view('pets.show', [
             'pet' => $pet
         ]);
@@ -57,7 +72,11 @@ class PetController extends Controller
 
     public function edit(string $id)
     {
-        $pet = $this->petService->getPetById($id);
+        try {
+            $pet = $this->petService->getPetById($id);
+        } catch (PetApiException $error) {
+            return back()->withErrors(['error' => $error->getMessage()]);
+        }
 
         return view('pets.edit', [
             'pet' => $pet
@@ -66,12 +85,16 @@ class PetController extends Controller
 
     public function update(PetRequest $request, string $id)
     {
-        $this->petService->updatePet([
-            'name' => $request->input('name'),
-            'category' => $request->input('category'),
-            'status' => $request->input('status'),
-            'photo_url' => $request->input('photo_url')
-        ]);
+        try {
+            $this->petService->updatePet([
+                'name' => $request->input('name'),
+                'category' => $request->input('category'),
+                'status' => $request->input('status'),
+                'photo_url' => $request->input('photo_url')
+            ]);
+        } catch (PetApiException $error) {
+            return back()->withErrors(['error' => $error->getMessage()]);
+        }
 
         $request->session()->flash('message', 'Pet updated successfully.');
         return redirect('pets');
@@ -79,10 +102,13 @@ class PetController extends Controller
 
     public function destroy(string $id, Request $request)
     {
-        //TODO: id exsist
+        try {
+            $this->petService->deletePet($id);
+        } catch (PetApiException $error) {
+            return back()->withErrors(['error' => $error->getMessage()]);
+        }
 
         $request->session()->flash('message', 'Pet removed successfully.');
-        $this->petService->deletePet($id);
         return redirect('pets');
     }
 }
