@@ -8,7 +8,6 @@
                 <div class="relative inline-block text-left">
                     <select id="statusSelect" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300
                     font-small rounded-lg text-sm px-2 py-2.5 text-start inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <option value="" selected>Change Status</option>
                         @foreach($statuses as $enum)
                             <option value="{{ $enum->value }}" {{ $status === $enum->value ? 'selected' : '' }}>{{ ucfirst($enum->value) }}</option>
                         @endforeach

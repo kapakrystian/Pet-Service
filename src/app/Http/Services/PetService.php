@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use Illuminate\Support\Facades\Http;
 use App\Exceptions\PetApiException;
+use App\Enums\PetStatus;
 
 
 class PetService
@@ -22,8 +23,10 @@ class PetService
         ];
     }
 
-    public function getPetsByStatus(string|null $status)
+    public function getPetsByStatus(string|null $status = null)
     {
+        $status = $status ?? PetStatus::Available->value;
+
         $response = Http::get(self::BASE_URL . 'pet/findByStatus', [
             'status' => $status
         ]);
