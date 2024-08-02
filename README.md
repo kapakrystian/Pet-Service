@@ -14,6 +14,14 @@ This project utilizes Laravel and REST API. It is an application where users can
 - Delete a pet
 - Filter pets by status
 
+## Technologies
+
+- Laravel
+- Docker
+- TailwindCSS
+- PHPUnit
+- JavaScript
+
 ## Installation
 
 1. Copy the `.env.example` file to `.env` and fill in the necessary details.
@@ -55,5 +63,3 @@ docker-compose exec server vendor/bin/phpunit --filter <test_name>
 Replace `<test_name>` with the name of the test, e.g., `testStorePetThrowsExceptionOnFailure`.
 
 ---
-
-This README provides a clear and concise guide for users and developers interacting with the project.
