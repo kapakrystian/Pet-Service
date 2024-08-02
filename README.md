@@ -1,4 +1,3 @@
-Here's the README content in English based on the information provided:
 
 ---
 
