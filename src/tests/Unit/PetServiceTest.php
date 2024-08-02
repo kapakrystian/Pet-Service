@@ -19,7 +19,7 @@ class PetServiceTest extends TestCase
 
     public function testStorePetThrowsExceptionOnFailure()
     {
-        // Mockowanie odpowiedzi HTTP jako niepowodzenia
+        // Mocking HTTP responses as failures
         Http::fake([
             'https://petstore.swagger.io/v2/pet/' => Http::response(['error' => 'Invalid input'], 405),
         ]);
@@ -35,5 +35,42 @@ class PetServiceTest extends TestCase
         $this->expectExceptionMessage('Failed to store pet');
 
         $this->petService->storePet($formData);
+    }
+
+    public function testStorePetSuccess()
+    {
+        $formData = [
+            'name' => 'Simba',
+            'category' => 'Dog',
+            'status' => 'sold',
+            'photo_url' => 'http://example.com/photo.jpg',
+        ];
+
+        // Mocking HTTP response as success
+        Http::fake([
+            'https://petstore.swagger.io/v2/pet/' => Http::response([
+                'id' => 1,
+                'name' => 'Simba',
+                'status' => 'sold',
+                'category' => [
+                    'name' => 'Dog'
+                ],
+                'photoUrls' => ['http://example.com/photo.jpg']
+            ], 200),
+        ]);
+
+        $expectedResponse = [
+            'id' => 1,
+            'name' => 'Simba',
+            'status' => 'sold',
+            'category' => [
+                'name' => 'Dog'
+            ],
+            'photoUrls' => ['http://example.com/photo.jpg']
+        ];
+
+        $response = $this->petService->storePet($formData);
+
+        $this->assertEquals($expectedResponse, $response);
     }
 }
