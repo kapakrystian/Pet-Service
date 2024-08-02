@@ -25,6 +25,7 @@ class PetController extends Controller
         try {
             $pets = $this->petService->getPetsByStatus($status);
         } catch (PetApiException $error) {
+            dd($error);
             return back()->withErrors(['error' => $error->getMessage()]);
         }
 

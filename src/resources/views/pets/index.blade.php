@@ -42,7 +42,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($pets as $pet)
+                @forelse ($pets as $pet)
                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                     <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap max-w-xs overflow-hidden text-ellipsis">
                         <p>{{ $pet['name'] ?? 'Name is unavailable' }}</p>
@@ -61,13 +61,19 @@
                         <a href="/pets/{{ $pet['id'] }}/edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center text-red-500 text-xs mt-1 font-semibold">
+                        <span>No data available in status</span>
+                    </td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
 </x-layout>
 
-<!--SKrypt aktualizujący URL z wybranym statusem -->
+<!-- Script that updates the URL with the selected status -->
 <script>
     document.getElementById('statusSelect').addEventListener('change', function() {
         var selectedStatus = this.value;
