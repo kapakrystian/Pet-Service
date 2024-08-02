@@ -31,7 +31,7 @@ This project utilizes Laravel and REST API. It is an application where users can
     ```
 3. Install PHP dependencies:
     ```
-    docker-compose exec php composer install
+    docker-compose exec server composer install
     ```
 4. Generate the application key:
     ```
