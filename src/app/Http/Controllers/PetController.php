@@ -12,10 +12,12 @@ class PetController extends Controller
 {
     private PetService $petService;
 
+
     public function __construct(PetService $petService)
     {
         $this->petService = $petService;
     }
+
 
     public function index(Request $request)
     {
@@ -36,10 +38,12 @@ class PetController extends Controller
         ]);
     }
 
+
     public function create()
     {
         return view('pets.create');
     }
+
 
     public function store(PetRequest $request)
     {
@@ -58,6 +62,7 @@ class PetController extends Controller
         return redirect('pets');
     }
 
+
     public function show(string $id)
     {
         try {
@@ -70,6 +75,7 @@ class PetController extends Controller
             'pet' => $pet
         ]);
     }
+
 
     public function edit(string $id)
     {
@@ -84,10 +90,12 @@ class PetController extends Controller
         ]);
     }
 
+
     public function update(PetRequest $request, string $id)
     {
         try {
             $this->petService->updatePet([
+                'id' => $id,
                 'name' => $request->input('name'),
                 'category' => $request->input('category'),
                 'status' => $request->input('status'),
@@ -101,6 +109,7 @@ class PetController extends Controller
         return redirect('pets');
     }
 
+    
     public function destroy(string $id, Request $request)
     {
         try {

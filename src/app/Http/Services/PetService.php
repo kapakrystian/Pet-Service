@@ -9,19 +9,9 @@ use App\Enums\PetStatus;
 
 class PetService
 {
+
     private const BASE_URL = 'https://petstore.swagger.io/v2/';
 
-    private function apiData(array $formData): array
-    {
-        return $apiData = [
-            'name' => $formData['name'],
-            'status' => $formData['status'],
-            'category' => [
-                'name' => $formData['category']
-            ],
-            'photoUrls' => [$formData['photo_url']]
-        ];
-    }
 
     public function getPetsByStatus(string|null $status = null)
     {
@@ -38,6 +28,7 @@ class PetService
         return $response->json();
     }
 
+
     public function getPetById(string $id)
     {
         $response = Http::get(self::BASE_URL . "pet/{$id}");
@@ -49,9 +40,17 @@ class PetService
         return $response->json();
     }
 
+
     public function storePet(array $formData)
     {
-        $response = Http::post(self::BASE_URL . 'pet/', $this->apiData($formData));
+        $response = Http::post(self::BASE_URL . 'pet/', [
+            'name' => $formData['name'],
+            'status' => $formData['status'],
+            'category' => [
+                'name' => $formData['category']
+            ],
+            'photoUrls' => [$formData['photo_url']]
+        ]);
 
         if ($response->failed()) {
             throw new PetApiException('Failed to store pet', $response->json(), $response->status());
@@ -60,9 +59,19 @@ class PetService
         return $response->json();
     }
 
+
     public function updatePet(array $formData)
     {
-        $response = Http::put(self::BASE_URL . 'pet/', $this->apiData($formData));
+        $response = Http::put(self::BASE_URL . 'pet/', [
+                'id' => $formData['id'],
+                'name' => $formData['name'],
+                'status' => $formData['status'],
+                'category' => [
+                    'id' => 0,
+                    'name' => $formData['category']
+                ],
+                'photoUrls' => [$formData['photo_url']]
+        ]);
 
         if ($response->failed()) {
             throw new PetApiException('Failed to update pet', $response->json(), $response->status());
@@ -71,6 +80,7 @@ class PetService
         return $response->json();
     }
 
+    
     public function deletePet(string $id)
     {
         $response = Http::delete(self::BASE_URL . "pet/{$id}");
